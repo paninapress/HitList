@@ -1,3 +1,5 @@
 Rails.application.routes.draw do
-  root "connections#index"
+  root 'site#index'
+
+  get '/connections', to: 'connections#index' 
 end
