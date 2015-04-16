@@ -2,16 +2,8 @@
 
 <% @connections.each do |c| %>
 	<ul>
-		<li><%= c.first_name %> <%= c.last_name %></li>
+		<li><%= link_to c.fullname, connection_path(c) %></li>
 	</ul>
 <% end %>
 
-<%= form_for :contact do |f| %>
-  <%= f.label :first_name %>:
-  <%= f.text_field :first_name %><br />
-
-  <%= f.label :last_name %>:
-  <%= f.text_field :last_name %><br />
-
-  <%= f.submit %>
-<% end %>
+<%= render partial: "new" %>
