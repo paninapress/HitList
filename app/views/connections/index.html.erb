@@ -1,1 +1,17 @@
 <h1>I'm the connections index</h1>
+
+<% @connections.each do |c| %>
+	<ul>
+		<li><%= c.first_name %> <%= c.last_name %></li>
+	</ul>
+<% end %>
+
+<%= form_for :contact do |f| %>
+  <%= f.label :first_name %>:
+  <%= f.text_field :first_name %><br />
+
+  <%= f.label :last_name %>:
+  <%= f.text_field :last_name %><br />
+
+  <%= f.submit %>
+<% end %>
