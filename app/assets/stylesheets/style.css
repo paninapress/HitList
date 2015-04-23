@@ -1,0 +1,18 @@
+/* Table Of Contents */
+/* 01- HEADERS       */
+/* 02- BODY          */
+/* 03- BUTTON STYLES */
+/* 04- MEDIA QUERY STYLES */
+
+/*--------------01-HEADERS-----------------*/
+
+/*--------------02-BODY--------------------*/
+body{
+  padding: 70px 0;
+}
+nav h4, nav p{
+  margin: 0 0;
+}
+/*--------------03-BUTTON STYLES-----------*/
+
+/*--------------04-MEDIA QUERY STYLES-----------*/
