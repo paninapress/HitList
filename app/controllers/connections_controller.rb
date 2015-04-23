@@ -4,6 +4,13 @@ class ConnectionsController < ApplicationController
 		@connections = Connection.all
 	end
 
+	def collect
+		binding.pry
+		Connection.collect_data(request)
+		connections = Connection.all
+		render :json => connections.as_json
+	end
+
 	def create
         new_contact = params.require(:connection).permit(:first_name, :last_name)
         new_contact[:fullname] = params[:connection][:first_name]+ " " + params[:connection][:last_name]
@@ -28,5 +35,5 @@ class ConnectionsController < ApplicationController
 
         redirect_to connection_path(contact)
     end
-    
+
 end
