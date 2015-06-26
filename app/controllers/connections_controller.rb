@@ -5,7 +5,6 @@ class ConnectionsController < ApplicationController
 	end
 
 	def collect
-		binding.pry
 		Connection.collect_data(request)
 		connections = Connection.all
 		render :json => connections.as_json
