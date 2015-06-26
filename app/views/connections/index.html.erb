@@ -1,1 +1,9 @@
 <h1>I'm the connections index</h1>
+
+<% @connections.each do |c| %>
+	<ul>
+		<li><%= link_to c.fullname, connection_path(c) %></li>
+	</ul>
+<% end %>
+
+<%= render partial: "new" %>
