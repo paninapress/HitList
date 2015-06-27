@@ -34,6 +34,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'oauth2'
 gem 'omniauth-linkedin-oauth2'
 
+# Login using Devise
+gem 'devise', '~> 3.5.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
