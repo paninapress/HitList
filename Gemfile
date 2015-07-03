@@ -34,6 +34,9 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'oauth2'
 gem 'omniauth-linkedin-oauth2'
 
+# Login using Devise
+gem 'devise', '~> 3.5.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
@@ -52,6 +55,9 @@ group :development, :test do
 
   # Spring speeds up development by keeping your application running in the background. Read more: https://github.com/rails/spring
   gem 'spring'
+
+  # To test Devise confirmable
+  gem 'mailcatcher', '~> 0.6.1'
 end
 
 ruby "2.2.1"

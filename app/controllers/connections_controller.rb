@@ -1,6 +1,7 @@
 class ConnectionsController < ApplicationController
-
-	def index
+    before_filter :authenticate_user!
+	
+    def index
 		@connections = Connection.all
 	end
 
