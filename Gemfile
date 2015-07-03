@@ -57,6 +57,7 @@ group :development, :test do
   gem 'spring'
 
   # To test Devise confirmable
+  # in Terminal, type 'mailcatcher' then go to localhost:1080
   gem 'mailcatcher', '~> 0.6.1'
 end
 
