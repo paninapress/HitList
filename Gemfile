@@ -62,6 +62,12 @@ group :development, :test do
 
   #Testing with RSpec
   gem 'rspec-rails', '~> 3.4'
+
+  #Instead of fixtures
+  gem 'factory_girl_rails', '~> 4.5'
+
+  # For integration testing
+  gem 'capybara', '~> 2.5'
 end
 
 ruby "2.2.1"
