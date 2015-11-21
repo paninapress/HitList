@@ -4,9 +4,6 @@ source 'https://rubygems.org'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.1'
 
- # Use for development only
-gem 'dotenv-rails', :groups => [:development, :test]
-
 #for Heroku
 gem 'rails_12factor', group: :production
 
@@ -59,6 +56,12 @@ group :development, :test do
   # To test Devise confirmable
   # in Terminal, type 'mailcatcher' then go to localhost:1080
   gem 'mailcatcher', '~> 0.6.1'
+
+  # Use for development only
+  gem 'dotenv-rails'
+
+  #Testing with RSpec
+  gem 'rspec-rails', '~> 3.4'
 end
 
 ruby "2.2.1"
