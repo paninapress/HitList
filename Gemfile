@@ -66,6 +66,9 @@ group :development, :test do
   #Instead of fixtures
   gem 'factory_girl_rails', '~> 4.5'
 
+  #For use with factory girl
+  gem 'faker', '~> 1.6', '>= 1.6.1'
+
   # For integration testing
   gem 'capybara', '~> 2.5'
 end
