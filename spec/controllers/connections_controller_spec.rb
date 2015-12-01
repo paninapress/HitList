@@ -1,5 +1,5 @@
 require "rails_helper"
-require 'support/controller_macros'
+require 'support/devise'
 
 describe ConnectionsController do
   login_user
