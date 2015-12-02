@@ -1,15 +1,18 @@
 require "rails_helper"
 require 'support/devise'
 
-describe ConnectionsController do
-  login_user
+describe ConnectionsController, :type => :controller do
+  
+   context "GET #index" do
+      	login_user
+    	it "should have a current_user" do
+    	   expect(:user).to_not be_nil
+    	end
 
-  it "should have a current_user" do
-    expect(subject).to_not be_nil
-  end
-
-  it "should get index" do
-    get 'index'
-    expect(response).to be_success
-  end
+    	it "responds successfully with an HTTP 200 status code" do
+            get :index
+            expect(response).to be_success
+            expect(response).to have_http_status(200)
+        end
+    end
 end
