@@ -5,4 +5,5 @@ class User < ActiveRecord::Base
          :recoverable, :rememberable, :trackable, :validatable, :confirmable
   has_many :friends
   validates :username, presence: true
+  validates :username, length: {maximum: 50}
 end

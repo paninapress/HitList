@@ -5,6 +5,10 @@ describe User, :type => :model do
         user = FactoryGirl.build(:user, username: nil)
         expect(user).to_not be_valid
     end
+    it "must have a username with less than 50 char" do
+        user=FactoryGirl.build(:user,username:"abcde"*12)
+        expect(user).to_not be_valid
+    end
     it "must have an email" do
     	user = FactoryGirl.build(:user, email: nil)
     	expect(user).to_not be_valid
