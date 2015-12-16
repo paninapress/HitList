@@ -1,8 +1,8 @@
 require "rails_helper"
 
 describe User, :type => :model do
-    it "must have a name" do
-        user = FactoryGirl.build(:user, name: nil)
+    it "must have a username" do
+        user = FactoryGirl.build(:user, username: nil)
         expect(user).to_not be_valid
     end
     it "must have an email" do
