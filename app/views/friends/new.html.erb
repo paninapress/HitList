@@ -1,9 +1,13 @@
 <%= form_for @friend do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %><br />
+  	<%= f.label :name %>
+  	<%= f.text_field :name %><br />
 
-  <%= f.label :category %>
-  <%= f.text_field :category %><br />
+  	<%= f.label :category %>
+  	<%= f.select(:category) do %>
+  		<% [['Every 3 weeks', 1], ['Every 6 weeks', 2],['Every 3 months', 3], ['Every 6 months', 4]].each do |c| %>
+    		<%= content_tag(:option, c.first, value: c.last) %>
+  		<% end %>
+	<% end %><br />
 
-  <%= f.submit %>
+  	<%= f.submit %>
 <% end %>
