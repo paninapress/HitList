@@ -2,6 +2,8 @@ Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
   root 'site#index'
   get '/friends', to: 'friends#index'
+  get '/friends/new', to: 'friends#new'
+  post '/friends', to: 'friends#create'
 end
 
 #                   Prefix Verb   URI Pattern                       Controller#Action

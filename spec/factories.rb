@@ -9,6 +9,5 @@ FactoryGirl.define do
   factory :friend do
     name { Faker::Internet.name }
     category 1
-    user nil
   end
 end
