@@ -5,6 +5,8 @@ Rails.application.routes.draw do
   get '/friends/new', to: 'friends#new'
   post '/friends', to: 'friends#create'
   get '/friends/:id', to: 'friends#show', as: 'friend'
+  get '/friends/:id/edit', to: 'friends#edit'
+  patch '/friends/:id', to: 'friends#update'
 end
 
 #                   Prefix Verb   URI Pattern                       Controller#Action

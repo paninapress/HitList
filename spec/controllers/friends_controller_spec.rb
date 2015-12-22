@@ -40,13 +40,29 @@ RSpec.describe FriendsController, type: :controller do
     context "GET #show" do
         login_user
         it "responds successfully with an HTTP 200 status code" do
-            get :show, id: FactoryGirl.attributes_for(:friend)
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            get :show, id: friend.id
             expect(response).to be_success
             expect(response).to have_http_status(200)
         end
-        # it "finds friend with given id" do
-        #     get :show, id: FactoryGirl.attributes_for(:friend)
-        #     expect
-        # end
+    end
+    context "GET #edit" do
+        login_user
+        it "responds successfully with an HTTP 200 status code" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            get :edit, id: friend.id
+            expect(response).to be_success
+            expect(response).to have_http_status(200)
+        end
+    end
+    context "PATCH #update" do
+        login_user
+        it "changes attributes of given friend" do
+            friend = FactoryGirl.create(:friend, name: "Mom", user_id: subject.current_user.id)
+            expect(friend.name).to eq("Mom")
+            patch :update, id: friend.id, friend: {name: "Dad"}
+            friend.reload
+            expect(friend.name).to eq("Dad")
+        end
     end
 end
