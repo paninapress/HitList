@@ -65,4 +65,15 @@ RSpec.describe FriendsController, type: :controller do
             expect(friend.name).to eq("Dad")
         end
     end
+    context "DELETE #destroy" do
+        login_user
+        it "deletes the friend" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            expect{delete :destroy, id: friend.id}.to change(Friend, :count).by(-1)
+        end
+        it "redirects to friends#index" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            expect(delete :destroy, id: friend.id).to redirect_to friends_path
+        end
+    end
 end

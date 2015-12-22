@@ -1,7 +1,8 @@
-<h1>Friends index</h1>
+<h1>Friends index ... <%= link_to "Add new friend", friends_new_path %></h1>
 <p>Find me in app/views/friends/index.html.erb</p>
+
 <% @friends.each do |f| %>
 	<ul>
-		<li><%= f.name %></li>
+		<li><%= link_to f.name, friend_path(f.id) %></li>
 	</ul>
 <% end %>

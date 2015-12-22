@@ -14,6 +14,7 @@ class FriendsController < ApplicationController
 		redirect_to friend_path(friend.id)
 	end
 	def show
+		@friend = Friend.find(params[:id])
 	end
 	def edit
 		@friend = Friend.find(params[:id])
@@ -23,5 +24,9 @@ class FriendsController < ApplicationController
 		updated_info = params.require(:friend).permit(:name, :category)
 		friend.update_attributes(updated_info)
 		redirect_to friend_path(friend.id)
+	end
+	def destroy
+		Friend.destroy(params[:id])
+		redirect_to friends_path
 	end
 end
