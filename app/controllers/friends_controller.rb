@@ -11,6 +11,9 @@ class FriendsController < ApplicationController
 		@friend = Friend.new(params.require(:friend).permit(:name, :category))
 		@friend.update_attributes(user_id: current_user.id)
 		@friend.save!
-		redirect_to "/friends"
+		redirect_to friend_path(@friend.id)
+	end
+	def show
+		byebug
 	end
 end
