@@ -11,4 +11,11 @@ FactoryGirl.define do
     category 1
     user_id nil
   end
+  factory :log do
+    date "2016-01-01"
+    type ""
+    rating 1
+    comment "MyText"
+    friend nil
+  end
 end
