@@ -1,6 +1,10 @@
 require 'rails_helper'
 
 RSpec.describe Friend, type: :model do
+    it "has a valid factory" do
+        friend = FactoryGirl.build(:friend)
+        expect(friend).to be_valid
+    end
     it "must have a name" do
         friend = FactoryGirl.build(:friend, name: nil)
         expect(friend).to_not be_valid
