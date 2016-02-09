@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   get '/friends/:id/edit', to: 'friends#edit', as: 'edit_friend'
   patch '/friends/:id', to: 'friends#update'
   delete '/friends/:id', to: 'friends#destroy', as: 'remove_friend'
+  post '/logs', to: 'logs#create'
 end
 
 #                   Prefix Verb   URI Pattern                       Controller#Action
