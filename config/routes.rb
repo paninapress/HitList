@@ -1,14 +1,10 @@
 Rails.application.routes.draw do
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
   root 'site#index'
-  get '/friends', to: 'friends#index'
-  get '/friends/new', to: 'friends#new'
-  post '/friends', to: 'friends#create'
-  get '/friends/:id', to: 'friends#show', as: 'friend'
-  get '/friends/:id/edit', to: 'friends#edit', as: 'edit_friend'
-  patch '/friends/:id', to: 'friends#update'
   delete '/friends/:id', to: 'friends#destroy', as: 'remove_friend'
-  post '/logs', to: 'logs#create'
+  resources :friends do
+    resources :logs
+  end
 end
 
 #                   Prefix Verb   URI Pattern                       Controller#Action
