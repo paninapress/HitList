@@ -21,4 +21,8 @@ describe User, :type => :model do
     	user1 = FactoryGirl.create(:user, email: "test@test.com")
     	expect(FactoryGirl.build(:user, email: "test@test.com")).to_not be_valid
     end
+    it "has many friends" do
+        user = FactoryGirl.create(:user)
+        expect(user.friends.count).to be > 0
+    end
 end

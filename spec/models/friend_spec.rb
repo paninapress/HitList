@@ -21,4 +21,9 @@ RSpec.describe Friend, type: :model do
         friend = FactoryGirl.build(:friend, user_id: nil)
         expect(friend).to_not be_valid
     end
+    it "has many logs" do
+        user = FactoryGirl.create(:user)
+        friend = user.friends.first
+        expect(friend.logs.count).to be > 0
+    end
 end

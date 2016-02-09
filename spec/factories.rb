@@ -5,6 +5,10 @@ FactoryGirl.define do
     password "password"
     password_confirmation "password"
     confirmed_at Date.today
+    after(:create) do | user |
+      friend = FactoryGirl.create(:friend, user_id: user.id)
+      friend.logs << FactoryGirl.create(:log, friend_id: friend.id)
+    end
   end
   factory :friend do
     name { Faker::Internet.name }
