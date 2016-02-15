@@ -2,7 +2,7 @@ class CreateLogs < ActiveRecord::Migration
   def change
     create_table :logs do |t|
       t.date :date
-      t.string :type
+      t.string :type_of
       t.integer :rating
       t.text :comment
       t.references :friend, index: true, foreign_key: true

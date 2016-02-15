@@ -17,7 +17,7 @@ FactoryGirl.define do
   end
   factory :log do
     date "2016-01-01"
-    type ""
+    type_of ""
     rating 1
     comment "MyText"
     friend_id 1

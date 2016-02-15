@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20160101190736) do
 
   create_table "logs", force: :cascade do |t|
     t.date     "date"
-    t.string   "type"
+    t.string   "type_of"
     t.integer  "rating"
     t.text     "comment"
     t.integer  "friend_id"

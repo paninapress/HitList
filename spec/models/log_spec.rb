@@ -13,8 +13,8 @@ describe Log, :type => :model do
         log = FactoryGirl.build(:log, friend_id: nil)
         expect(log).to_not be_valid
     end
-    it "is valid without a type" do
-        log = FactoryGirl.build(:log, type: nil)
+    it "is valid without a type_of" do
+        log = FactoryGirl.build(:log, type_of: nil)
         expect(log).to be_valid
     end
     it "is valid without a rating" do
