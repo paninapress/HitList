@@ -8,7 +8,7 @@ class Log < ActiveRecord::Base
     validates :type_of, inclusion: { in: ["Text", "Audio", "Video", "In-Person"], message: "%{value} is not a valid type", allow_nil: true }
 
     def self.create_log (friend, data)
-        if !data[:date]
+        if !data[:date] || data[:date] == ""
             data[:date] = Date.today
         end
         if data[:type_of]

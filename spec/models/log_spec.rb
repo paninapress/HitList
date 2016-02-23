@@ -44,6 +44,9 @@ describe Log, :type => :model do
             data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil)
             Log.create_log(friend, data)
             expect(data[:date]).to eq(Date.today)
+            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: "")
+            Log.create_log(friend, data)
+            expect(data[:date]).to eq(Date.today)
         end
         it "calls set_type_of when type_of exists" do
             user = FactoryGirl.create(:user)
