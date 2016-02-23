@@ -64,6 +64,17 @@ RSpec.describe FriendsController, type: :controller do
             friend.reload
             expect(friend.name).to eq("Dad")
         end
+        it "does not change friend with invalid attributes" do
+            friend = FactoryGirl.create(:friend, name: "Mom", user_id: subject.current_user.id)
+            expect(friend.name).to eq("Mom")
+            patch :update, id: friend.id, friend: {name: nil}
+            friend.reload
+            expect(friend.name).to eq("Mom")
+        end
+        it "redirects to friends#show" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            expect(patch :update, id: friend.id, friend: {name:"Mom"}).to redirect_to friend_path(friend)
+        end
     end
     context "DELETE #destroy" do
         login_user

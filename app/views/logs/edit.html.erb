@@ -1,5 +1,5 @@
 <h1>Log for: <%= @friend.name %></h1>
-<%= form_for(:log, url:"/friends/#{@friend.id}/logs", method: "post")  do |l| %>
+<%= form_for(:log, url:"/friends/#{@friend.id}/logs/#{@log.id}", method: "patch")  do |l| %>
   	<%= l.label :date %>
   	<%= l.date_field :date %><br />
 

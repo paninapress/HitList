@@ -20,4 +20,36 @@ RSpec.describe LogsController, type: :controller do
             expect(response).to redirect_to friend_path(Friend.last)
         end
     end
+    context "GET #edit" do
+        login_user
+        it "responds successfully with an HTTP 200 status code" do
+            user = FactoryGirl.create(:user)
+            log = Log.last
+            get :edit, {friend_id: Friend.last, id: log.id}
+            expect(response).to be_success
+            expect(response).to have_http_status(200)
+        end
+    end
+    context "PATCH #update" do
+        login_user
+        it "changes attributes of a given log" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id, comment: "Can she fix it?")
+            patch :update, friend_id: friend.id, id: log.id, log: { comment: "YES, SHE CAN!" }
+            log.reload
+            expect(log.comment).to eq("YES, SHE CAN!")
+        end
+        it "does not change log with invalid attributes" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id, rating: 3)
+            patch :update, friend_id: friend.id, id: log.id, log: { rating: 0 }
+            log.reload
+            expect(log.rating).to eq(3)
+        end
+        it "redirects to friends#show" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id, comment: "Can she fix it?")
+            expect(patch :update, friend_id: friend.id, id: log.id, log: {comment: "YES"}).to redirect_to(friend_path(friend))
+        end
+    end
 end
