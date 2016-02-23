@@ -5,7 +5,8 @@ class Log < ActiveRecord::Base
     validates :rating, numericality: {    only_integer: true, 
                                         greater_than: 0, 
                                         less_than_or_equal_to: 5 }, if: 'rating.present?'
-    
+    validates :type_of, inclusion: { in: ["Text", "Audio", "Video", "In-Person"], message: "%{value} is not a valid type", allow_nil: true }
+
     def self.create_log (friend, data)
         if !data[:date]
             data[:date] = Date.today

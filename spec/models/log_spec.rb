@@ -67,4 +67,13 @@ describe Log, :type => :model do
             expect{ Log.create_log(friend, data) }.to change{ friend.logs.count }.by(1)
         end
     end
+    it "only allows Text, Audio, Video, In-Person responses for type" do
+        (1..4).each do |i|
+            text = Log.set_log_type(i)
+            log = FactoryGirl.build(:log, type_of: text)
+            expect(log).to be_valid
+        end
+        log = FactoryGirl.build(:log, type_of: "something else")
+        expect(log).to_not be_valid
+    end
 end
