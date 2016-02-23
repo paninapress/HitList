@@ -20,4 +20,9 @@ class LogsController < ApplicationController
 		log.update_attributes(updated_info)
 		redirect_to friend_path(friend)
 	end
+	def destroy
+		friend = Friend.find(params[:friend_id])
+		Log.destroy(params[:id])
+		redirect_to friend_path(friend)
+	end
 end

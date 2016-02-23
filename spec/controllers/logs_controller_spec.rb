@@ -59,4 +59,17 @@ RSpec.describe LogsController, type: :controller do
             expect(patch :update, friend_id: friend.id, id: log.id, log: {comment: "YES"}).to redirect_to(friend_path(friend))
         end
     end
+    context "DELETE #destroy" do
+        login_user
+        it "deletes the log" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id)
+            expect{delete :destroy, friend_id: friend.id, id: log.id}.to change{friend.logs.count}.by(-1)
+        end
+        it "redirects to friends#show" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id)
+            expect(delete :destroy, friend_id: friend.id, id: log.id).to redirect_to(friend_path(friend))
+        end
+    end
 end
