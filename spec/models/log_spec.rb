@@ -37,30 +37,38 @@ describe Log, :type => :model do
         log = FactoryGirl.build(:log, comment: nil)
         expect(log).to be_valid
     end
-    context "create_log" do
+    context "assemble_log" do
         it "sets date to today's date if none given" do
             user = FactoryGirl.create(:user)
             friend = user.friends.first
             data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil)
-            Log.create_log(friend, data)
+            Log.assemble_log(data)
             expect(data[:date]).to eq(Date.today)
             data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: "")
-            Log.create_log(friend, data)
+            Log.assemble_log(data)
             expect(data[:date]).to eq(Date.today)
         end
         it "calls set_type_of when type_of exists" do
             user = FactoryGirl.create(:user)
             friend = user.friends.first
             data = FactoryGirl.attributes_for(:log, friend_id: friend.id, type_of: 2)
-            Log.create_log(friend, data)
+            Log.assemble_log(data)
             expect(data[:type_of]).to eq("Audio")
         end
         it "doesn't call set_type_of if type_of is nil" do
             user = FactoryGirl.create(:user)
             friend = user.friends.first
             data = FactoryGirl.attributes_for(:log, friend_id: friend.id, type_of: nil)
-            Log.create_log(friend, data)
+            Log.assemble_log(data)
             expect(data[:type_of]).to eq(nil)
+        end
+    end
+    context "create_log" do
+        it "calls assemble_log" do
+            user = FactoryGirl.create(:user)
+            friend = user.friends.first
+            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil)
+            expect{ Log.create_log(friend, data) }.to change{ data[:date] }.to( Date.today )
         end
         it "creates log for given friend" do
             user = FactoryGirl.create(:user)

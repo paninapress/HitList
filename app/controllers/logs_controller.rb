@@ -16,9 +16,7 @@ class LogsController < ApplicationController
 		friend = Friend.find(params[:friend_id])
 		log = Log.find(params[:id])
 		updated_info = params.require(:log).permit(:date, :type_of, :rating, :comment)
-		if updated_info[:type_of]
-            updated_info[:type_of] = Log.set_log_type(updated_info[:type_of].to_i)
-        end
+		Log.assemble_log(updated_info)
 		log.update_attributes(updated_info)
 		redirect_to friend_path(friend)
 	end

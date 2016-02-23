@@ -7,13 +7,17 @@ class Log < ActiveRecord::Base
                                         less_than_or_equal_to: 5 }, if: 'rating.present?'
     validates :type_of, inclusion: { in: ["Text", "Audio", "Video", "In-Person"], message: "%{value} is not a valid type", allow_nil: true }
 
-    def self.create_log (friend, data)
+    def self.assemble_log(data)
         if !data[:date] || data[:date] == ""
             data[:date] = Date.today
         end
         if data[:type_of]
             data[:type_of] = set_log_type(data[:type_of].to_i)
         end
+        return data
+    end
+    def self.create_log (friend, data)
+        assemble_log(data)
         friend.logs << Log.create(data)
     end
 

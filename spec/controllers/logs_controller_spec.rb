@@ -32,6 +32,13 @@ RSpec.describe LogsController, type: :controller do
     end
     context "PATCH #update" do
         login_user
+        it "calls assemble_log" do
+            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
+            log = FactoryGirl.create(:log, friend_id: friend.id, type_of: "Audio")
+            patch :update, friend_id: friend.id, id: log.id, log: { type_of: 1 }
+            log.reload
+            expect(log.type_of).to eq("Text")
+        end
         it "changes attributes of a given log" do
             friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
             log = FactoryGirl.create(:log, friend_id: friend.id, comment: "Can she fix it?")
