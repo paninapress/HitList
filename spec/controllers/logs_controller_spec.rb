@@ -15,5 +15,9 @@ RSpec.describe LogsController, type: :controller do
         it "creates new log" do
             expect{ post :create, {friend_id: Friend.last, log: FactoryGirl.attributes_for(:log)} }.to change(Log,:count).by(1)
         end
+        it "redirects to friend's show page" do
+            post :create, {friend_id: Friend.last, log: FactoryGirl.attributes_for(:log)}
+            expect(response).to redirect_to friend_path(Friend.last)
+        end
     end
 end
