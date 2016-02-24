@@ -1,5 +1,5 @@
 class Log < ActiveRecord::Base
-    belongs_to :friend, dependent: :destroy
+    belongs_to :friend
     validates :date, presence: true
     validates :friend_id, presence: true
     validates :rating, numericality: {    only_integer: true, 
