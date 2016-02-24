@@ -7,11 +7,18 @@ RSpec.describe FriendsController, type: :controller do
         it "should have a current_user" do
             expect(subject.current_user).to_not be_nil
         end
-
         it "responds successfully with an HTTP 200 status code" do
             get :index
             expect(response).to be_success
             expect(response).to have_http_status(200)
+        end
+        it "gets friends" do
+            get :index
+            expect(assigns(:friends)).to eq(subject.current_user.friends)
+        end
+        it "only gets current_user's friends" do
+            get :index
+            expect(assigns(:friends)).to_not eq(Friend.all)
         end
     end
     context "GET #new" do
