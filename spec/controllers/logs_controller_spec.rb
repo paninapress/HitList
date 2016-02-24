@@ -2,10 +2,10 @@ require 'rails_helper'
 require 'support/devise'
 
 RSpec.describe LogsController, type: :controller do
-	context "GET #new" do
+	context "render #new" do
         login_user
         it "responds successfully with an HTTP 200 status code" do
-            get :new, {friend_id: Friend.last}
+            render_template :new, {friend_id: Friend.last}
             expect(response).to be_success
             expect(response).to have_http_status(200)
         end
