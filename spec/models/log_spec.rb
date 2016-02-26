@@ -6,49 +6,55 @@ describe Log, :type => :model do
         expect(log).to be_valid
     end
     context "is invalid" do
-        subject(:log){ FactoryGirl.build(:log, date: nil, friend_id: nil, rating: "not an integer") }
+        subject(:log){ FactoryGirl.build(:log) }
 
         it "without a :date" do
+            log[:date] = nil
             expect(log).to_not be_valid
         end
         it "without a :friend_id" do
+            log[:friend_id] = nil
             expect(log).to_not be_valid
         end
         it "if the :rating is a string" do
+            log[:rating] = "not an integer"
             expect(log).to_not be_valid
         end
         it "if the :rating is a float" do
-            log2 = FactoryGirl.build(:log, rating: 1.435)
-            expect(log2).to_not be_valid
+            log[:rating] = 1.435
+            expect(log).to_not be_valid
         end
         it "if the rating is > 5" do
-            rating_greater = FactoryGirl.build(:log, rating: 6)
-            expect(rating_greater).to_not be_valid
+            log[:rating] = 6
+            expect(log).to_not be_valid
         end
         it "if the :rating is < 1" do
-            rating_less = FactoryGirl.build(:log, rating: 0)
-            expect(rating_less).to_not be_valid
+            log[:rating] = 0
+            expect(log).to_not be_valid
         end
     end
     context "is valid" do
-        subject(:log){ FactoryGirl.build(:log, type_of: nil, rating: nil, comment: nil) }
+        subject(:log){ FactoryGirl.build(:log) }
         it "without a :type_of" do
+            log[:type_of] = nil
             expect(log).to be_valid
         end
         it "without a :rating" do
+            log[:rating] = nil
             expect(log).to be_valid
         end
         it "if the :rating is an integer" do
-            log2 = FactoryGirl.build(:log, rating: 1)
-            expect(log2).to be_valid
+            log[:rating] = 1
+            expect(log).to be_valid
         end
         it "if the :rating is between 1-5" do
             (1..5).each do |i|
-                log_pass = FactoryGirl.build(:log, rating: i)
-                expect(log_pass).to be_valid
+                log[:rating] = i
+                expect(log).to be_valid
             end
         end
         it "without a :comment" do
+            log[:comment] = nil
             expect(log).to be_valid
         end
     end

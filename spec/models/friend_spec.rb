@@ -1,34 +1,40 @@
 require 'rails_helper'
 
 RSpec.describe Friend, type: :model do
-    context "validation specs" do
+    it "has a valid factory" do
+        friend = FactoryGirl.build(:friend)
+        expect(friend).to be_valid
+    end
+    context "is invalid" do
         subject(:friend) { FactoryGirl.build(:friend) }
 
-        it "has a valid factory" do
-            expect(friend).to be_valid
-        end
-        it "must have a name" do
+        it "without a :name" do
             friend[:name] = nil
             expect(friend).to_not be_valid
         end
-        it "must have a name with less than 50 char" do
+        it "if :name > 50 characters" do
             friend[:name] = "abcde"*12
             expect(friend).to_not be_valid
         end
-        it "must have a category" do
+        it "without a :category" do
             friend[:category] = nil
             expect(friend).to_not be_valid
         end
-        it "belongs to a user" do
+        it "without a :user_id" do
             friend[:user_id] = nil
             expect(friend).to_not be_valid
         end
     end
-    context "logs" do
-        subject (:user){ FactoryGirl.create(:user) }
-        subject (:friend){ user.friends.first }
 
-        it "has many logs" do
+    context "with logs" do
+        let(:user){ FactoryGirl.create(:user) }
+        let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
+        let(:log){ FactoryGirl.create(:log, friend_id: friend.id) }
+        before(:each) do
+            expect(log).to be_valid
+        end
+
+        it "can have many logs" do
             expect(friend.logs.count).to be > 0
         end
         it "has dependent destroy for friend.logs" do
