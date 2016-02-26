@@ -1,6 +1,10 @@
 require "rails_helper"
 
 describe User, :type => :model do
+    it "has a valid factory" do
+        user = FactoryGirl.build(:user)
+        expect(user).to be_valid
+    end
     it "must have a username" do
         user = FactoryGirl.build(:user, username: nil)
         expect(user).to_not be_valid

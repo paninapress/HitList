@@ -11,65 +11,55 @@ RSpec.describe LogsController, type: :controller do
         end
     end
     context "POST #create" do
-        login_user
+        subject(:friend){ FactoryGirl.create(:friend) }
+
         it "creates new log" do
-            expect{ post :create, {friend_id: Friend.last, log: FactoryGirl.attributes_for(:log)} }.to change(Log,:count).by(1)
+            expect{ post :create, {friend_id: friend.id, log: FactoryGirl.attributes_for(:log)} }.to change(Log,:count).by(1)
         end
         it "redirects to friend's show page" do
-            post :create, {friend_id: Friend.last, log: FactoryGirl.attributes_for(:log)}
-            expect(response).to redirect_to friend_path(Friend.last)
+            post :create, {friend_id: friend.id, log: FactoryGirl.attributes_for(:log)}
+            expect(response).to redirect_to friend_path(friend)
         end
     end
     context "GET #edit" do
-        login_user
         it "responds successfully with an HTTP 200 status code" do
-            user = FactoryGirl.create(:user)
-            log = Log.last
-            get :edit, {friend_id: Friend.last, id: log.id}
+            log = FactoryGirl.create(:log)
+            get :edit, {friend_id: log.friend_id, id: log.id}
             expect(response).to be_success
             expect(response).to have_http_status(200)
         end
     end
     context "PATCH #update" do
-        login_user
-        it "calls assemble_log" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id, type_of: "Audio")
-            patch :update, friend_id: friend.id, id: log.id, log: { type_of: 1 }
+        subject(:log){ FactoryGirl.create(:log, type_of: "Audio", comment: "Can she fix it?")}
+
+        it "does not change log with invalid attributes" do
+            patch :update, friend_id: log.friend_id, id: log.id, log: { type_of: "something invalid"}
             log.reload
-            expect(log.type_of).to eq("Text")
+            expect(log.type_of).to eq("Audio")
         end
         it "changes attributes of a given log" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id, comment: "Can she fix it?")
-            patch :update, friend_id: friend.id, id: log.id, log: { comment: "YES, SHE CAN!" }
+            patch :update, friend_id: log.friend_id, id: log.id, log: { comment: "YES, SHE CAN!" }
             log.reload
             expect(log.comment).to eq("YES, SHE CAN!")
         end
-        it "does not change log with invalid attributes" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id, rating: 3)
-            patch :update, friend_id: friend.id, id: log.id, log: { rating: 0 }
+        it "calls assemble_log" do
+            patch :update, friend_id: log.friend_id, id: log.id, log: { type_of: 1 }
             log.reload
-            expect(log.rating).to eq(3)
+            expect(log.type_of).to eq("Text")
         end
         it "redirects to friends#show" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id, comment: "Can she fix it?")
-            expect(patch :update, friend_id: friend.id, id: log.id, log: {comment: "YES"}).to redirect_to(friend_path(friend))
+            expect(patch :update, friend_id: log.friend_id, id: log.id, log:{comment:"YES!"}).to redirect_to(friend_path(log.friend_id))
         end
     end
     context "DELETE #destroy" do
-        login_user
+        subject(:log){ FactoryGirl.create(:log) }
+        
         it "deletes the log" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id)
-            expect{delete :destroy, friend_id: friend.id, id: log.id}.to change{friend.logs.count}.by(-1)
+            friend = Friend.find(log.friend_id)
+            expect{delete :destroy, friend_id: log.friend_id, id: log.id}.to change{friend.logs.count}.by(-1)
         end
         it "redirects to friends#show" do
-            friend = FactoryGirl.create(:friend, user_id: subject.current_user.id)
-            log = FactoryGirl.create(:log, friend_id: friend.id)
-            expect(delete :destroy, friend_id: friend.id, id: log.id).to redirect_to(friend_path(friend))
+            expect(delete :destroy, friend_id: log.friend_id, id: log.id).to redirect_to(friend_path(log.friend_id))
         end
     end
 end
