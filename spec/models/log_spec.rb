@@ -5,86 +5,100 @@ describe Log, :type => :model do
         log = FactoryGirl.build(:log)
         expect(log).to be_valid
     end
-    it "must have a date" do
-        log = FactoryGirl.build(:log, date: nil)
-        expect(log).to_not be_valid
+    context "is invalid" do
+        subject(:log){ FactoryGirl.build(:log, date: nil, friend_id: nil, rating: "not an integer") }
+
+        it "without a :date" do
+            expect(log).to_not be_valid
+        end
+        it "without a :friend_id" do
+            expect(log).to_not be_valid
+        end
+        it "if the :rating is a string" do
+            expect(log).to_not be_valid
+        end
+        it "if the :rating is a float" do
+            log2 = FactoryGirl.build(:log, rating: 1.435)
+            expect(log2).to_not be_valid
+        end
+        it "if the rating is > 5" do
+            rating_greater = FactoryGirl.build(:log, rating: 6)
+            expect(rating_greater).to_not be_valid
+        end
+        it "if the :rating is < 1" do
+            rating_less = FactoryGirl.build(:log, rating: 0)
+            expect(rating_less).to_not be_valid
+        end
     end
-    it "belongs to a Friend" do
-        log = FactoryGirl.build(:log, friend_id: nil)
-        expect(log).to_not be_valid
+    context "is valid" do
+        subject(:log){ FactoryGirl.build(:log, type_of: nil, rating: nil, comment: nil) }
+        it "without a :type_of" do
+            expect(log).to be_valid
+        end
+        it "without a :rating" do
+            expect(log).to be_valid
+        end
+        it "if the :rating is an integer" do
+            log2 = FactoryGirl.build(:log, rating: 1)
+            expect(log2).to be_valid
+        end
+        it "if the :rating is between 1-5" do
+            (1..5).each do |i|
+                log_pass = FactoryGirl.build(:log, rating: i)
+                expect(log_pass).to be_valid
+            end
+        end
+        it "without a :comment" do
+            expect(log).to be_valid
+        end
     end
-    it "is valid without a type_of" do
-        log = FactoryGirl.build(:log, type_of: nil)
-        expect(log).to be_valid
-    end
-    it "is valid without a rating" do
-        log = FactoryGirl.build(:log, rating: nil)
-        expect(log).to be_valid
-    end
-    it "has only allows integers for the rating" do
-        log = FactoryGirl.build(:log, rating: "something else")
-        expect(log).to_not be_valid
-        log2 = FactoryGirl.build(:log, rating: 1.435)
-        expect(log2).to_not be_valid
-    end
-    it "only allows the rating to be a number from 1-5" do
-        log_fail = FactoryGirl.build(:log, rating: 6)
-        expect(log_fail).to_not be_valid
-        log_pass = FactoryGirl.build(:log, rating: 5)
-        expect(log_pass).to be_valid
-    end
-    it "is valid without a comment" do
-        log = FactoryGirl.build(:log, comment: nil)
-        expect(log).to be_valid
-    end
-    context "assemble_log" do
-        it "sets date to today's date if none given" do
-            user = FactoryGirl.create(:user)
-            friend = user.friends.first
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil)
-            Log.assemble_log(data)
-            expect(data[:date]).to eq(Date.today)
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: "")
+    context "def assemble_log will" do
+        let(:user){ FactoryGirl.create(:user) }
+        let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
+        let(:data){ FactoryGirl.attributes_for(:log, friend_id: friend.id) }
+
+        it "set :date to today if nil" do
+            data[:date] = nil
             Log.assemble_log(data)
             expect(data[:date]).to eq(Date.today)
         end
-        it "calls set_type_of when type_of exists" do
-            user = FactoryGirl.create(:user)
-            friend = user.friends.first
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, type_of: 2)
+        it "set :date to today if calendar field returns empty string" do
+            data[:date] = ""
+            Log.assemble_log(data)
+            expect(data[:date]).to eq(Date.today)
+        end
+        it "call def set_type_of when type_of exists && != 0" do
+            data[:type_of] = 2
             Log.assemble_log(data)
             expect(data[:type_of]).to eq("Audio")
         end
-        it "doesn't call set_type_of if type_of is nil" do
-            user = FactoryGirl.create(:user)
-            friend = user.friends.first
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, type_of: nil)
+        it "not call set_type_of if type_of is nil" do
+            data[:type_of] = nil
             Log.assemble_log(data)
             expect(data[:type_of]).to eq(nil)
         end
     end
-    context "create_log" do
+    context "def create_log" do
+        let(:user){ FactoryGirl.create(:user) }
+        let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
+        let(:data){ FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil) }
+        
         it "calls assemble_log" do
-            user = FactoryGirl.create(:user)
-            friend = user.friends.first
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil)
             expect{ Log.create_log(friend, data) }.to change{ data[:date] }.to( Date.today )
         end
         it "creates log for given friend" do
-            user = FactoryGirl.create(:user)
-            friend = user.friends.first
-            data = FactoryGirl.attributes_for(:log, friend_id: friend.id)
-            Log.create_log(friend, data)
             expect{ Log.create_log(friend, data) }.to change{ friend.logs.count }.by(1)
         end
     end
-    it "only allows Text, Audio, Video, In-Person responses for type" do
-        (1..4).each do |i|
-            text = Log.set_log_type(i)
-            log = FactoryGirl.build(:log, type_of: text)
-            expect(log).to be_valid
+    context "def set_log_type" do
+        it "only allows Text, Audio, Video, In-Person responses for type" do
+            (1..4).each do |i|
+                text = Log.set_log_type(i)
+                log = FactoryGirl.build(:log, type_of: text)
+                expect(log).to be_valid
+            end
+            log = FactoryGirl.build(:log, type_of: "something else")
+            expect(log).to_not be_valid
         end
-        log = FactoryGirl.build(:log, type_of: "something else")
-        expect(log).to_not be_valid
     end
 end
