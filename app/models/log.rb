@@ -11,7 +11,7 @@ class Log < ActiveRecord::Base
         if !data[:date] || data[:date] == ""
             data[:date] = Date.today
         end
-        if data[:type_of]
+        if data[:type_of] && data[:type_of].to_i != 0 # "string".to_i returns 0, so we want to leave it
             data[:type_of] = set_log_type(data[:type_of].to_i)
         end
         return data
