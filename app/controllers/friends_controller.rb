@@ -9,9 +9,12 @@ class FriendsController < ApplicationController
 	def create
 		id = current_user.id
 		friend = Friend.new(params.require(:friend).permit(:name, :category))
-		friend.update_attributes(user_id: current_user.id)
-		friend.save!
-		redirect_to friend_path(friend.id)
+		if friend.update_attributes(user_id: current_user.id)		
+			redirect_to friend_path(friend.id)
+		else
+			flash[:notice] = friend.errors.messages
+			render action: "new"
+		end
 	end
 	def show
 		@friend = Friend.find(params[:id])
