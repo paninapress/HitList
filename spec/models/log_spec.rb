@@ -16,6 +16,10 @@ describe Log, :type => :model do
             log[:friend_id] = nil
             expect(log).to_not be_valid
         end
+        it "if type_of is any besides Text, Audio, Video, In-Person, or nil" do
+            log = FactoryGirl.build(:log, type_of: "something else")
+            expect(log).to_not be_valid
+        end
         it "if the :rating is a string" do
             log[:rating] = "not an integer"
             expect(log).to_not be_valid
@@ -97,14 +101,12 @@ describe Log, :type => :model do
         end
     end
     context "def set_log_type" do
-        it "only allows Text, Audio, Video, In-Person responses for type" do
-            (1..4).each do |i|
+        it "sets type_of to the valid options of Text, Audio, Video, In-Person, or nil" do
+            (1..5).each do |i|
                 text = Log.set_log_type(i)
                 log = FactoryGirl.build(:log, type_of: text)
                 expect(log).to be_valid
             end
-            log = FactoryGirl.build(:log, type_of: "something else")
-            expect(log).to_not be_valid
         end
     end
 end
