@@ -1,0 +1,31 @@
+<h1>Log for: <%= @friend.name %></h1>
+<%= form_for(:log, url:"/friends/#{@friend.id}/logs/#{@log.id}", method: "patch")  do |l| %>
+  	<%= l.label :date %>
+  	<%= l.date_field :date %><br />
+
+  	<%= l.label :type_of %>
+  	<%= l.select(:type_of) do %>
+  		<% [[@log.type_of, nil],["Text", 1], ["Audio", 2],["Video", 3], ["In-Person", 4]].each do |t| %>
+    		<%= content_tag(:option, t.first, value: t.last) %>
+  		<% end %>
+	<% end %><br />
+
+	<%= l.label :rating %>
+	<%= l.radio_button(:rating, "1") %>
+	<%= l.label(:rating_1, "1") %>
+	<%= l.radio_button(:rating, "2") %>
+	<%= l.label(:rating_2, "2") %>
+	<%= l.radio_button(:rating, "3") %>
+	<%= l.label(:rating_3, "3") %>
+	<%= l.radio_button(:rating, "4") %>
+	<%= l.label(:rating_4, "4") %>
+	<%= l.radio_button(:rating, "5") %>
+	<%= l.label(:rating_5, "5") %><br />
+
+	<%= l.label :comment %>
+  	<%= l.text_area :comment %><br />
+
+
+
+  	<%= l.submit %>
+<% end %>

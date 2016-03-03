@@ -1,0 +1,10 @@
+<h1><%= @friend.name %></h1>
+<h2>Category: <%= @friend.category %></h2>
+	<p><%= link_to "Edit Friend", edit_friend_path %></p>
+	<p><%= link_to "Remove Friend", {:action=>"destroy", :controller=>"friends"}, method: :delete, data: { confirm: "Are you sure?" }%></p>
+	<p><%= render template: "/logs/_new" %></p>
+	<% @friend.logs.each do |l| %>
+		<ul>
+			<li>Date: <%= l.date %> Rating: <%= l.rating %> Type: <%= l.type_of %> Comment: <%= l.comment %> <%= link_to "EDIT", edit_friend_log_path(friend_id: @friend.id, id: l.id) %> ... <%= link_to "DELETE", {:action=>"destroy", :controller=>"logs", :id=>l.id, :friend_id=>l.friend_id}, method: :delete, data: { confirm: "Are you sure?" } %></li>
+		</ul>
+	<% end %>
