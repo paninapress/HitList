@@ -22,7 +22,7 @@ class Log < ActiveRecord::Base
     end
 
     def self.set_log_type(num)
-        log_options = ["Text", "Audio", "Video", "In-Person"]
+        log_options = ["Text", "Audio", "Video", "In-Person", nil]
         return log_options[num - 1]
     end
 end

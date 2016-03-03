@@ -5,11 +5,12 @@
 
   	<%= l.label :type_of %>
   	<%= l.select(:type_of) do %>
-  		<% [["Text", 1], ["Audio", 2],["Video", 3], ["In-Person", 4]].each do |t| %>
+  		<% [[@log.type_of, nil],["Text", 1], ["Audio", 2],["Video", 3], ["In-Person", 4]].each do |t| %>
     		<%= content_tag(:option, t.first, value: t.last) %>
   		<% end %>
 	<% end %><br />
 
+	<%= l.label :rating %>
 	<%= l.radio_button(:rating, "1") %>
 	<%= l.label(:rating_1, "1") %>
 	<%= l.radio_button(:rating, "2") %>
