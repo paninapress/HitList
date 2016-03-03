@@ -12,8 +12,8 @@ class FriendsController < ApplicationController
 		if friend.update_attributes(user_id: current_user.id)		
 			redirect_to friend_path(friend.id)
 		else
-			flash[:notice] = friend.errors.messages
-			render action: "new"
+			flash_errors(friend)
+			redirect_to new_friend_path
 		end
 	end
 	def show
@@ -31,5 +31,11 @@ class FriendsController < ApplicationController
 	def destroy
 		Friend.destroy(params[:id])
 		redirect_to friends_path
+	end
+	def flash_errors(friend)
+		flash[:notice] = "Errors: "
+		friend.errors.messages.each do |e|
+			flash[:notice] += e.join(" ") + ". "
+		end
 	end
 end
