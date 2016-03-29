@@ -14,4 +14,7 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require bootstrap.min
+//= require angular
+//= require famous
+//= require famous-angular
 //= require_tree .

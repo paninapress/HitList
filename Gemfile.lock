@@ -36,6 +36,7 @@ GEM
       minitest (~> 5.1)
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
+    angularjs-rails (1.5.0)
     arel (6.0.0)
     bcrypt (3.1.10)
     binding_of_caller (0.7.2)
@@ -81,6 +82,7 @@ GEM
       railties (>= 3.0.0)
     faker (1.6.1)
       i18n (~> 0.5)
+    famous-angular-rails (1.0.1)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     globalid (0.3.5)
@@ -241,6 +243,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  angularjs-rails (~> 1.5)
   byebug
   capybara (~> 2.5)
   coffee-rails (~> 4.1.0)
@@ -248,6 +251,7 @@ DEPENDENCIES
   dotenv-rails
   factory_girl_rails (~> 4.5)
   faker (~> 1.6, >= 1.6.1)
+  famous-angular-rails (~> 1.0, >= 1.0.1)
   jbuilder (~> 2.0)
   jquery-rails
   mailcatcher (~> 0.6.1)

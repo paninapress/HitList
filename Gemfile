@@ -34,6 +34,12 @@ gem 'omniauth-linkedin-oauth2'
 # Login using Devise
 gem 'devise', '~> 3.5.1'
 
+# Adds Angular.js to pipeline
+gem 'angularjs-rails', '~> 1.5'
+
+# For frontend
+gem 'famous-angular-rails', '~> 1.0', '>= 1.0.1'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
