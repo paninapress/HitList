@@ -89,6 +89,12 @@ GEM
       activesupport (>= 4.1.0)
     hashie (3.4.2)
     i18n (0.7.0)
+    jasmine (2.4.0)
+      jasmine-core (~> 2.4)
+      phantomjs
+      rack (>= 1.2.1)
+      rake
+    jasmine-core (2.4.1)
     jbuilder (2.3.0)
       activesupport (>= 3.0.0, < 5)
       multi_json (~> 1.2)
@@ -135,6 +141,7 @@ GEM
       omniauth (~> 1.2)
     orm_adapter (0.5.0)
     pg (0.18.2)
+    phantomjs (2.1.1.0)
     rack (1.6.4)
     rack-protection (1.5.3)
       rack
@@ -252,6 +259,7 @@ DEPENDENCIES
   factory_girl_rails (~> 4.5)
   faker (~> 1.6, >= 1.6.1)
   famous-angular-rails (~> 1.0, >= 1.0.1)
+  jasmine (~> 2.4)
   jbuilder (~> 2.0)
   jquery-rails
   mailcatcher (~> 0.6.1)

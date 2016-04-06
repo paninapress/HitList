@@ -77,6 +77,9 @@ group :development, :test do
 
   # For integration testing
   gem 'capybara', '~> 2.5'
+
+  # For testing Angular.js
+  gem 'jasmine', '~> 2.4'
 end
 
 ruby "2.2.1"
