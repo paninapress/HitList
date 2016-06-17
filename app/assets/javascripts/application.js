@@ -17,4 +17,5 @@
 //= require angular
 //= require famous
 //= require famous-angular
+//= require angular-resource
 //= require_tree .

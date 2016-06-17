@@ -4,9 +4,10 @@
   <title>HitList</title>
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'angular-resource' %>
   <%= csrf_meta_tags %>
 </head>
-<body>
+<body ng-app="DashboardApp">
 
 	<div class="container">
     	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">

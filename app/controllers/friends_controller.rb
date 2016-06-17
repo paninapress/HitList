@@ -1,7 +1,7 @@
 class FriendsController < ApplicationController
 	before_filter :authenticate_user!
 	def index
-		@friends = Friend.where(user_id: current_user)
+		render :json => Friend.where(user_id: current_user)
 	end
 	def new
 		@friend = Friend.new
