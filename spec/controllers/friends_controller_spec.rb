@@ -5,7 +5,7 @@ RSpec.describe FriendsController, type: :controller do
 	context "GET #index" do
         login_user
         before(:each) do
-            get :index
+            get :index, format: :json
         end
 
         it "should have a current_user" do
@@ -15,12 +15,10 @@ RSpec.describe FriendsController, type: :controller do
             expect(response).to be_success
             expect(response).to have_http_status(200)
         end
-        it "gets friends" do
-            expect(assigns(:friends)).to eq(subject.current_user.friends)
+        it "renders user's friends to JSON" do
+            expect(response.body).to match(subject.current_user.friends.to_json)
         end
-        it "only gets current_user's friends" do
-            expect(assigns(:friends)).to_not eq(Friend.all)
-        end
+        it "only gets current_user's friends"
     end
     context "GET #new" do
         login_user
