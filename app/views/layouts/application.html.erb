@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'angular-resource' %>
   <%= csrf_meta_tags %>
 </head>
-<body ng-app="DashboardApp">
+<body ng-app="DashboardApp" ng-controller='DashboardCtrl'>
 
 	<div class="container">
     	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
@@ -15,7 +15,8 @@
           <li><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
         </ul>
         <ul class="nav nav-pills pull-right">
-            <li><a href="/friends">Friends</a></li>
+            <li ng-click="nowDisplaying('stars-view')" class="list-view hide"><a>Stars</a></li>
+            <li ng-click="nowDisplaying('list-view')" class="stars-view"><a>Friends</a></li>
             <% if user_signed_in? %>
               <li><%= link_to('Logout', destroy_user_session_path, method: :delete)  %></li>
             <% else %>
@@ -28,7 +29,7 @@
 	<div class="main-content container">
     <p class="notice"><%= notice %></p>
     <p class="alert"><%= alert %></p>
-		<%= yield %>
+    <%= yield %>
 	</div>
 
 </body>

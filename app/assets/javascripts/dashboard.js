@@ -15,5 +15,16 @@ angular.module('DashboardApp').controller(
 			.then(function(friendsResponse){
 				$scope.friends = friendsResponse;
 			});
+
+		$scope.nowDisplaying = function(viewThis){
+			if(viewThis=='list-view'){
+				$('.stars-view').addClass('hide');
+				$('.list-view').removeClass('hide');
+			}
+			else if(viewThis=='stars-view'){
+				$('.list-view').addClass('hide');
+				$('.stars-view').removeClass('hide');
+			}
+		}
 	}
 ]);

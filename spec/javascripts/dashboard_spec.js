@@ -45,4 +45,30 @@ describe('DashboardCtrl', function() {
       expect($scope.friends).toEqual(mockFriendsResponse);
     });
   });
+
+  describe('displaying list of user\'s friends', function() {
+    it('should make list-view active', function(){
+      spyOn($.fn, 'addClass');
+      $scope.nowDisplaying('list-view');
+      expect($.fn.addClass).toHaveBeenCalled();
+    });
+    it('should hide stars views', function(){
+      spyOn($.fn, 'removeClass');
+      $scope.nowDisplaying('list-view');
+      expect($.fn.removeClass).toHaveBeenCalled();
+    });
+  });
+
+  describe('displaying stars view', function(){
+    it('should make stars-view active', function(){
+      spyOn($.fn, 'addClass');
+      $scope.nowDisplaying('stars-view');
+      expect($.fn.addClass).toHaveBeenCalled();
+    });
+    it('should hide list-view', function(){
+      spyOn($.fn, 'removeClass');
+      $scope.nowDisplaying('stars-view');
+      expect($.fn.removeClass).toHaveBeenCalled();
+    });
+  });
 });
