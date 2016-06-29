@@ -1,0 +1,25 @@
+<h2>Log in</h2>
+<form class="new_user ng-pristine ng-valid" id="new_user" action="/users/sign_in" accept-charset="UTF-8" method="post">
+  <div class="field">
+    <label for="user_email">Email</label><br>
+    <input autofocus="autofocus" type="email" value="" name="user[email]" id="user_email">
+  </div>
+
+  <div class="field">
+    <label for="user_password">Password</label><br>
+    <input autocomplete="off" type="password" name="user[password]" id="user_password">
+  </div>
+
+    <div class="field">
+      <input name="user[remember_me]" type="hidden" value="0"><input type="checkbox" value="1" name="user[remember_me]" id="user_remember_me">
+      <label for="user_remember_me">Remember me</label>
+    </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Log in">
+  </div>
+</form>
+
+<p><a href="/users/sign_up">Sign up</a></p>
+<p><a href="/users/password/new">Forgot your password?</a></p>
+<p><a href="/users/confirmation/new">Didn't receive confirmation instructions?</a></p>
