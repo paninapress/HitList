@@ -1,4 +1,4 @@
-angular.module('HitListRoute', ['ngRoute'])
+angular.module('HitListRoute', ['ngRoute','Devise','public.ctrl.signIn', 'public.ctrl.sessions'])
 	.config(['$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider){
 			$routeProvider
@@ -6,6 +6,9 @@ angular.module('HitListRoute', ['ngRoute'])
 				templateUrl: '/views/index.html'
 			})
 			.when('/users/sign_in', {
+				templateUrl:'/views/login.html'
+			})
+			.when('/sign_in', {
 				templateUrl:'/views/login.html'
 			});
 		$locationProvider.html5Mode(true);

@@ -19,4 +19,5 @@
 //= require famous-angular
 //= require angular-resource
 //= require angular-route
+//= require angular-devise
 //= require_tree .

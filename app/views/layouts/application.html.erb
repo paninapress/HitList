@@ -6,6 +6,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'angular-resource' %>
   <%= javascript_include_tag 'angular-route' %>
+    <%= javascript_include_tag 'angular-devise' %>
   <%= csrf_meta_tags %>
   <base href="/">
 </head>
@@ -16,7 +17,7 @@
         <ul class="nav nav-pills pull-left">
           <li data-no-turbolink><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
         </ul>
-        <ul class="nav nav-pills pull-right">
+        <ul class="nav nav-pills pull-right" ng-controller="sessionCtrl as session">
             <% if user_signed_in? %>
               <li ng-click="nowDisplaying('stars-view')" class="active"><a>Stars</a></li>
               <li ng-click="nowDisplaying('list-view')"><a>Friends</a></li>
@@ -24,6 +25,8 @@
             <% else %>
               <li><%= link_to('Login', new_user_session_path)  %></li>
             <% end %>
+    <li role="presentation" ng-hide="isAuthenticated"><a href="/sign_in">Sign In</a></li>
+    <li role="presentation" ng-show="isAuthenticated"><a href ="" ng-click="session.logout()">Log out</a></li>
         </ul>
       </nav>
   	</div>
