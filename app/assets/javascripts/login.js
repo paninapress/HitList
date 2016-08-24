@@ -1,13 +1,22 @@
-angular.module('public.ctrl.signIn', [])
+angular.module('public.ctrl.signIn', ['Devise'])
   .controller('signInCtrl', ['Auth', '$scope', '$location',
     function(Auth, $scope, $location) {
       this.credentials = { email: '', password: '' };
 
       this.signIn = function() {
         // Code to use 'angular-devise' component
-        Auth.login(this.credentials).then(function(user) {
-          $location.path("/");
-          alert('Successfully signed in user!')
+        var config = {
+            headers: {
+                'X-HTTP-Method-Override': 'POST'
+            }
+        };
+        Auth.login(this.credentials, config).then(function(user) {
+          Auth.currentUser().then(function(user) {
+            $scope.isAuthenticated = true;
+          });
+          alert('Successfully signed in user!');
+          $location.path("/dashboard");
+          
         }, function(error) {
           console.info('Error in authenticating user!');
           alert('Error in signing in user!');
@@ -17,20 +26,27 @@ angular.module('public.ctrl.signIn', [])
 
   ]);
 
-angular.module('public.ctrl.sessions', [])
+angular.module('public.ctrl.sessions', ['Devise'])
   .controller('sessionCtrl', ['Auth', '$scope', '$location',
-    function(Auth, $scope) {
+    function(Auth, $scope, $location) {
       // Check on load if user signed in
-      Auth.currentUser().then(function(user) {
-        $scope.isAuthenticated = true;
-      }, function(error) {
-        // Log on console to check out what the error is.
-      });
+      if($location.path() == '/dashboard'){
+        var config = {
+          interceptAuth: false
+        };
+        Auth.currentUser(config).then(function(user) {
+          $scope.isAuthenticated = true;
+        }, function(error) {
+          // Log on console to check out what the error is.
+          console.log(error)
+        });
+      }
+
 
       $scope.$on('devise:login', function(event, currentUser) {
         $scope.isAuthenticated = true;
         // You can get data of current user (getting user's name and etc.)
-        console.log(currentUser.inspect);
+        console.log(currentUser);
       });
 
       $scope.$on('devise:new-session', function(event, currentUser) {
@@ -45,13 +61,49 @@ angular.module('public.ctrl.sessions', [])
         $scope.isAuthenticated = true;
       });
 
+
+
       this.logout = function() {
-        Auth.logout().then(function(oldUser) {
+        var config = {
+          headers: {
+              'X-HTTP-Method-Override': 'DELETE'
+          }
+        };
+        Auth.logout(config).then(function(oldUser) {
           alert("Successfully logged out!");
-          $location.path("/");
+          $location.path("/users/sign_in");
         }, function(error) {
           // An error occurred logging out.
         });
       }
     }
   ]);
+
+  angular.module('myAuthIntercept', ['Devise'])
+    .controller('myCtrl', function($scope, Auth, $http) {
+
+        // Catch unauthorized requests and recover.
+        $scope.$on('devise:unauthorized', function(event, xhr, deferred) {
+            // Disable interceptor on _this_ login request,
+            // so that it too isn't caught by the interceptor
+            // on a failed login.
+            var config = {
+                interceptAuth: false
+            };
+
+            // Ask user for login credentials
+            Auth.login(credentials, config).then(function() {
+                // Successfully logged in.
+                // Redo the original request.
+                return $http(xhr.config);
+            }).then(function(response) {
+                // Successfully recovered from unauthorized error.
+                // Resolve the original request's promise.
+                deferred.resolve(response);
+            }, function(error) {
+                // There was an error logging in.
+                // Reject the original request's promise.
+                deferred.reject(error);
+            });
+        });
+    });
