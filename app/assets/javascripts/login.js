@@ -1,6 +1,6 @@
 angular.module('public.ctrl.signIn', ['Devise'])
-  .controller('signInCtrl', ['Auth', '$scope', '$location',
-    function(Auth, $scope, $location) {
+  .controller('signInCtrl', ['Auth', '$scope', '$location','$window',
+    function(Auth, $scope, $location, $window) {
       this.credentials = { email: '', password: '' };
 
       this.signIn = function() {
@@ -15,8 +15,10 @@ angular.module('public.ctrl.signIn', ['Devise'])
             $scope.isAuthenticated = true;
           });
           alert('Successfully signed in user!');
-          $location.path("/dashboard");
-          
+          $location.path("/");
+          $window.location.reload();
+
+
         }, function(error) {
           console.info('Error in authenticating user!');
           alert('Error in signing in user!');
@@ -27,8 +29,8 @@ angular.module('public.ctrl.signIn', ['Devise'])
   ]);
 
 angular.module('public.ctrl.sessions', ['Devise'])
-  .controller('sessionCtrl', ['Auth', '$scope', '$location',
-    function(Auth, $scope, $location) {
+  .controller('sessionCtrl', ['Auth', '$scope', '$location', '$window',
+    function(Auth, $scope, $location, $window) {
       // Check on load if user signed in
       if($location.path() == '/dashboard'){
         var config = {
@@ -71,7 +73,7 @@ angular.module('public.ctrl.sessions', ['Devise'])
         };
         Auth.logout(config).then(function(oldUser) {
           alert("Successfully logged out!");
-          $location.path("/users/sign_in");
+          $window.location.reload();
         }, function(error) {
           // An error occurred logging out.
         });

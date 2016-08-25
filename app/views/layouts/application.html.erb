@@ -19,8 +19,13 @@
         </ul>
 
         <ul class="nav nav-pills pull-right" ng-controller="sessionCtrl as session">
-            <li ng-hide="isAuthenticated"><%= link_to('Login', new_user_session_path)  %></li>
-          <li ng-show="isAuthenticated"><a href="#" ng-click="session.logout()">Logout</a></li>
+          <% if user_signed_in? %>
+              <li><a href="#" ng-click="session.logout()">Logout</a></li>
+          <% else %>
+              <li><%= link_to('Login', new_user_session_path)  %></li>
+          <% end %>
+
+
         </ul>
       </nav>
     </div>
