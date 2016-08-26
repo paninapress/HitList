@@ -28,7 +28,7 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Login using Devise
-gem 'devise', '~> 3.5.1'
+gem 'devise', '~> 4.2'
 
 # For authentication via Rails Devise Angular
 gem 'angular_rails_csrf'  
