@@ -4,7 +4,9 @@ FactoryGirl.define do
     email { Faker::Internet.email }
     password "password"
     password_confirmation "password"
-    confirmed_at Date.today
+    factory :confirmed_user do
+      confirmed_at Date.today
+    end
     # after(:create) do | user |
     #   friend = FactoryGirl.create(:friend, user_id: user.id)
     #   friend.logs << FactoryGirl.create(:log, friend_id: friend.id)

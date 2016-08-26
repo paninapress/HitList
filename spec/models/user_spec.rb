@@ -5,8 +5,11 @@ describe User, :type => :model do
         user = FactoryGirl.build(:user)
         expect(user).to be_valid
     end
+    it "sends a confirmation email" do
+        expect { FactoryGirl.create(:user) }.to change { ActionMailer::Base.deliveries.count }
+    end
     context "is invalid" do
-        subject(:user){ FactoryGirl.build(:user) }
+        subject(:user){ FactoryGirl.build(:confirmed_user) }
 
         it "without a :username" do
             user[:username] = nil
@@ -30,7 +33,7 @@ describe User, :type => :model do
         end
     end
     context "with friends" do
-        let(:user){ FactoryGirl.create(:user) }
+        let(:user){ FactoryGirl.create(:confirmed_user) }
         let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
         before(:each) do
             expect(friend).to be_valid

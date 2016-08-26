@@ -63,7 +63,7 @@ describe Log, :type => :model do
         end
     end
     context "def assemble_log will" do
-        let(:user){ FactoryGirl.create(:user) }
+        let(:user){ FactoryGirl.create(:confirmed_user) }
         let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
         let(:data){ FactoryGirl.attributes_for(:log, friend_id: friend.id) }
 
@@ -89,7 +89,7 @@ describe Log, :type => :model do
         end
     end
     context "def create_log" do
-        let(:user){ FactoryGirl.create(:user) }
+        let(:user){ FactoryGirl.create(:confirmed_user) }
         let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
         let(:data){ FactoryGirl.attributes_for(:log, friend_id: friend.id, date: nil) }
         

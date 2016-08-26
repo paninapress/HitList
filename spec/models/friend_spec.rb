@@ -27,7 +27,7 @@ RSpec.describe Friend, type: :model do
     end
 
     context "with logs" do
-        let(:user){ FactoryGirl.create(:user) }
+        let(:user){ FactoryGirl.create(:confirmed_user) }
         let(:friend){ FactoryGirl.create(:friend, user_id: user.id) }
         let(:log){ FactoryGirl.create(:log, friend_id: friend.id) }
         before(:each) do
