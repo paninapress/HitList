@@ -15,17 +15,20 @@
 	 <div class="container">
     	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <ul class="nav nav-pills pull-left">
-          <li data-no-turbolink><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
+         <% if user_signed_in? %>
+              <li data-no-turbolink><a href="/dashboard"><h4>HitList</h4><p>Version 1.0</p></a></li>
+          <% else %>
+              <li data-no-turbolink><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
+          <% end %>
         </ul>
 
         <ul class="nav nav-pills pull-right" ng-controller="sessionCtrl as session">
           <% if user_signed_in? %>
-              <li><a href="#" ng-click="session.logout()">Logout</a></li>
+              <li><a href="#" ng-click="session.logout()">Log out</a></li>
           <% else %>
-              <li><%= link_to('Login', new_user_session_path)  %></li>
+              <li><%= link_to('Sign up', new_user_registration_path)  %></li>
+              <li><%= link_to('Log in', new_user_session_path)  %></li>
           <% end %>
-
-
         </ul>
       </nav>
     </div>

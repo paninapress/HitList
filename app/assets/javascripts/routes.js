@@ -1,4 +1,4 @@
-angular.module('HitListRoute', ['ngRoute','public.ctrl.signIn', 'public.ctrl.sessions','myAuthIntercept'])
+angular.module('HitListRoute', ['ngRoute','public.ctrl.signIn', 'public.ctrl.register', 'public.ctrl.sessions'])
 	.config(['$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider){
 			$routeProvider
@@ -10,6 +10,9 @@ angular.module('HitListRoute', ['ngRoute','public.ctrl.signIn', 'public.ctrl.ses
 			})
 			.when('/sign_in', {
 				templateUrl:'/views/login.html'
+			})
+			.when('/users/sign_up', {
+				templateUrl: '/views/signup.html'
 			})
 			.when('/dashboard', {
 				templateUrl: '/views/dashboard.html'
