@@ -1,0 +1,19 @@
+<h2>Log in</h2>  
+<form class="new_user ng-pristine ng-valid" id="new_user"> 
+  <span class="error" ng-show="login_error.message">{{ login_error.message }}</span> 
+  <div class="form-group">
+    <label for="inputEmail">Email Address</label>
+    <span id='login-email' ng-class="{error: login_error.errors.email}"  ng-show="login_error.errors.email" ng-repeat="field_error in login_error.errors.email">{{ field_error }}</span>
+    <input type="email" class="form-control" id="inputEmail" placeholder="Enter email" ng-model="login_user.email">
+  </div>
+  <div class="form-group">
+    <label for="inputPassword">Password</label>
+    <span id="login-password" ng-class="{error: login_error.errors.password}" ng-show="login_error.errors.password" ng-repeat="field_error in login_error.errors.password">{{ field_error }}</span>
+    <input type="password" class="form-control" id="inputPassword" placeholder="Password" ng-model="login_user.password">
+  </div> 
+  <input ng-click="login()" type="submit" class="btn btn-default" value="Log in" />
+</form>
+<br>
+<p><a href="/users/sign_up">Sign up</a></p>
+<!-- <p><a href="/users/password/new">Forgot your password?</a></p> -->
+<p><a href="/users/confirmation/new">Didn't receive confirmation instructions?</a></p>

@@ -42,6 +42,9 @@ gem 'angularjs-rails', '~> 1.5'
 # For frontend
 gem 'famous-angular-rails', '~> 1.0', '>= 1.0.1'
 
+# For Class-Level respond_to
+gem 'responders', '~> 2.0'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

@@ -22,9 +22,9 @@
           <% end %>
         </ul>
 
-        <ul class="nav nav-pills pull-right" ng-controller="sessionCtrl as session">
+        <ul class="nav nav-pills pull-right">
           <% if user_signed_in? %>
-              <li><a href="#" ng-click="session.logout()">Log out</a></li>
+              <li><a ng-controller="loginFuncCtrl" href="#" ng-click="logout()">Log out</a></li>
           <% else %>
               <li><%= link_to('Sign up', new_user_registration_path)  %></li>
               <li><%= link_to('Log in', new_user_session_path)  %></li>

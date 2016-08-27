@@ -1,4 +1,4 @@
-angular.module('HitListRoute', ['ngRoute','public.ctrl.signIn', 'public.ctrl.register', 'public.ctrl.sessions'])
+angular.module('HitListRoute', ['ngRoute', 'loginFuncMod'])
 	.config(['$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider){
 			$routeProvider
@@ -6,13 +6,24 @@ angular.module('HitListRoute', ['ngRoute','public.ctrl.signIn', 'public.ctrl.reg
 				templateUrl: '/views/index.html'
 			})
 			.when('/users/sign_in', {
-				templateUrl:'/views/login.html'
-			})
-			.when('/sign_in', {
-				templateUrl:'/views/login.html'
+				templateUrl:'/views/users/sessions/login.html',
+				controller: 'loginFuncCtrl'
 			})
 			.when('/users/sign_up', {
-				templateUrl: '/views/signup.html'
+				templateUrl: '/views/users/registrations/signup.html',
+				controller: 'loginFuncCtrl'
+			})
+			// .when('/users/password/new', {
+			// 	templateUrl: '/views/users/passwords/new.html',
+			// 	controller: 'loginFuncCtrl'
+			// })
+			// .when('/users/password/edit', {
+			// 	templateUrl: '/views/users/passwords/edit.html',
+			// 	controller: 'loginFuncCtrl'
+			// })
+			.when('/users/confirmation/new',{
+				templateUrl: '/views/users/confirmations/new.html',
+				controller: 'loginFuncCtrl'
 			})
 			.when('/dashboard', {
 				templateUrl: '/views/dashboard.html'

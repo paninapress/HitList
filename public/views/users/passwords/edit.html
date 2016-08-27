@@ -1,0 +1,23 @@
+<h2>Change your password</h2>
+
+<form class="edit_user ng-pristine ng-valid" id="edit_user" ng-submit="change_password()">
+  <span class="error" ng-show="register_error.message">{{ register_error.message }}</span>
+  <div class="form-group">
+    <label for="user_password">New password</label><em>(6 characters minimum)</em>
+    <span ng-class="{error: register_error.errors.password}" ng-show="register_error.errors.password" ng-repeat="field_error in register_error.errors.password">{{ field_error }}</span><br>
+    <input autofocus="autofocus" autocomplete="off" type="password" name="user[password]" id="user_password" ng-model="parameters.password">
+  </div>
+
+  <div class="form-group">
+    <label for="user_password_confirmation">Confirm new password</label>
+    <span ng-class="{error: register_error.errors.password_confirmation}" ng-show="register_error.errors.password_confirmation" ng-repeat="field_error in register_error.errors.password_confirmation">{{ field_error }}</span><br>
+    <input autocomplete="off" type="password" name="user[password_confirmation]" id="user_password_confirmation" ng-model="parameters.password_confirmation">
+  </div>
+
+  <div class="actions">
+    <input type="submit" name="commit" value="Change my password">
+  </div>
+</form>
+<p><a href="/users/sign_in">Log in</a></p>
+<p><a href="/users/sign_up">Sign up</a></p>
+<p><a href="/users/confirmation/new">Didn't receive confirmation instructions?</a></p>
