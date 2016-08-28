@@ -6,7 +6,8 @@ describe User, :type => :model do
         expect(user).to be_valid
     end
     it "sends a confirmation email" do
-        expect { FactoryGirl.create(:user) }.to change { ActionMailer::Base.deliveries.count }
+        user = FactoryGirl.create(:user)
+        expect(user.confirmation_sent_at.time.strftime("%Y-%m-%d %H:%M:%S")).to eq(Time.now.utc.strftime("%Y-%m-%d %H:%M:%S"))
     end
     context "is invalid" do
         subject(:user){ FactoryGirl.build(:confirmed_user) }
