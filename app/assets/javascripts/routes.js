@@ -13,14 +13,14 @@ angular.module('HitListRoute', ['ngRoute', 'loginFuncMod'])
 				templateUrl: '/views/users/registrations/signup.html',
 				controller: 'loginFuncCtrl'
 			})
-			// .when('/users/password/new', {
-			// 	templateUrl: '/views/users/passwords/new.html',
-			// 	controller: 'loginFuncCtrl'
-			// })
-			// .when('/users/password/edit', {
-			// 	templateUrl: '/views/users/passwords/edit.html',
-			// 	controller: 'loginFuncCtrl'
-			// })
+			.when('/users/password/new', {
+				templateUrl: '/views/users/passwords/new.html',
+				controller: 'loginFuncCtrl'
+			})
+			.when('/users/password/edit', {
+				templateUrl: '/views/users/passwords/edit.html',
+				controller: 'loginFuncCtrl'
+			})
 			.when('/users/confirmation/new',{
 				templateUrl: '/views/users/confirmations/new.html',
 				controller: 'loginFuncCtrl'

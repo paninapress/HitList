@@ -2,6 +2,7 @@
 
 <form class="edit_user ng-pristine ng-valid" id="edit_user" ng-submit="change_password()">
   <span class="error" ng-show="register_error.message">{{ register_error.message }}</span>
+
   <div class="form-group">
     <label for="user_password">New password</label><em>(6 characters minimum)</em>
     <span ng-class="{error: register_error.errors.password}" ng-show="register_error.errors.password" ng-repeat="field_error in register_error.errors.password">{{ field_error }}</span><br>

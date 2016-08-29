@@ -1,25 +1,6 @@
-angular.module('loginFuncMod',[])
-  .controller('loginFuncCtrl', ['$scope', '$http', '$location', '$window', '$timeout',
-    function($scope, $http, $location, $window, $timeout){
-      // Also didn't work: when trying again remember to add Devise to the module and Auth to the controller
-      // var parameters = {
-      //   password: null,
-      //   password_confirmation: null,
-      //   reset_password_token: null,
-      // };
-      // $scope.change_password = function(){
-      //   console.log(this.parameters);
-      //   Auth.resetPassword(this.parameters).then(function(new_data){
-      //     console.log(new_data);
-      //   }, function(error){
-      //     console.log(error);
-      //   });
-      // };
-
-      // $scope.$on('devise:reset-password-successfully', function(event){
-      //   console.log('WE DID IT!');
-      // });
-
+angular.module('loginFuncMod',['Devise'])
+  .controller('loginFuncCtrl', ['$scope', '$http', '$location', '$window', '$timeout', 'Auth',
+    function($scope, $http, $location, $window, $timeout, Auth){
       $scope.login_user = {
         email: null,
         password: null
@@ -134,15 +115,15 @@ angular.module('loginFuncMod',[])
         });
       };
 
-      // Can't figure out how to get the user to make this work
+      // Doesn't work because 'email can't be blank'. I need to somehow use the reset_password_token to get the user email and then do the update
       // $scope.change_password = function() {
       //   $scope.submit({
       //     method: "POST",
       //     url: '/users/password.json',
       //     data: {
-      //       user: { email: $scope.register_user.email,
-      //         password: $scope.register_user.password,
-      //         password_confirmation: $scope.register_user.password_confirmation
+      //       user: { password: $scope.register_user.password,
+      //         password_confirmation: $scope.register_user.password_confirmation,
+      //         reset_password_token: /reset_password_token=(.+)/.exec($location.absUrl())[1]
       //       }
       //     },
       //     success_message: "Your password has been updated.",
@@ -154,6 +135,39 @@ angular.module('loginFuncMod',[])
       //     }, 2000);
       //   });
       // };
+
+      // This works. requires 'Auth' and 'Devise' from angular-devise
+      var parameters = {
+        password: null,
+        password_confirmation: null,
+        reset_password_token: null,
+      };
+      $scope.change_password = function(){
+        $scope.reset_messages();
+        this.parameters.reset_password_token = /reset_password_token=(.+)/.exec($location.absUrl())[1];
+        Auth.resetPassword(this.parameters).then(function(new_data){
+          $scope.register_error.message = "Your password has been updated.";
+          $timeout(function() {
+            $location.path('/');
+            $window.location.reload();
+          }, 1500);
+        }, function(error){
+           if (error.status == 422){
+            $scope.register_error.errors = error.data.errors;
+          }
+          else {
+            if (error.data.error) {
+              $scope.register_error.message = error.data.error;
+            }
+            else {
+              $scope.register_error.message = "Unexplained error, potentially a server error, please report via support channels as this indicates a code defect. Server response was: " + JSON.stringify(data);
+            }
+          }
+        });
+      };
+
+      $scope.$on('devise:reset-password-successfully', function(event){
+      });
 
       $scope.submit = function(parameters, redirect){
         $scope.reset_messages();
@@ -180,6 +194,7 @@ angular.module('loginFuncMod',[])
         })
         .error(function(data, status){
           if (status == 422){
+            console.log(data.errors)
             parameters.error_entity.errors = data.errors;
           }
           else {
@@ -197,7 +212,7 @@ angular.module('loginFuncMod',[])
         $scope.login_error.message = null;
         $scope.login_error.errors = {};
         $scope.register_error.message = null;
-        $scope.register_error.error = {};
+        $scope.register_error.errors = {};
       };
 
       $scope.reset_users = function(){

@@ -2,14 +2,14 @@
 
 <form class="new_user ng-pristine ng-valid" id="new_user">
   <span class="error" ng-show="login_error.message">{{ login_error.message }}</span>
-  <div class="field">
+  <div class="form-group">
     <label for="user_email">Email</label>
     <span id='user-email' ng-class="{error: login_error.errors.email}"  ng-show="login_error.errors.email" ng-repeat="field_error in login_error.errors.email">{{ field_error }}</span><br>
     <input autofocus="autofocus" type="email" value="" name="user[email]" id="user_email"  ng-model="login_user.email">
   </div>
 
   <div class="actions">
-    <input ng-click="resetPassword()" type="submit" name="commit" value="Send me reset password instructions">
+    <input ng-click="password_reset()" type="submit" name="commit" value="Send me reset password instructions">
   </div>
 </form>
 <br>
