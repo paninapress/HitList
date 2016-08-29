@@ -1,4 +1,4 @@
-angular.module('HitListRoute', ['ngRoute', 'loginFuncMod'])
+angular.module('HitListRoute', ['ngRoute', 'loginFuncMod', 'DashboardApp'])
 	.config(['$routeProvider', '$locationProvider',
 		function($routeProvider, $locationProvider){
 			$routeProvider
@@ -26,13 +26,16 @@ angular.module('HitListRoute', ['ngRoute', 'loginFuncMod'])
 				controller: 'loginFuncCtrl'
 			})
 			.when('/dashboard', {
-				templateUrl: '/views/dashboard/stars.html'
+				templateUrl: '/views/dashboard/stars.html',
+				controller: 'DashboardCtrl'
 			})
 			.when('/dashboard/stars', {
-				templateUrl: '/views/dashboard/stars.html'
+				templateUrl: '/views/dashboard/stars.html',
+				controller: 'DashboardCtrl'
 			})
 			.when('/dashboard/friends', {
-				templateUrl: '/views/dashboard/friends.html'
+				templateUrl: '/views/dashboard/friends.html',
+				controller: 'DashboardCtrl'
 			});
 		$locationProvider.html5Mode(true);
 		}]);
