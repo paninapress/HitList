@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
-  root 'site#index'
-  get '/dashboard', to: 'site#show', as: 'dashboard'
-  resources :friends do
-    resources :logs
-  end
+	root 'site#index'
+    devise_for :users, :path => '', :path_names => {:sign_up => 'signup', :sign_in => 'login'}, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+    get '/dashboard', to: 'site#show', as: 'dashboard'
+    resources :friends do
+    	resources :logs
+ 	 end
 end

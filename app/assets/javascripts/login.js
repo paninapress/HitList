@@ -29,7 +29,7 @@ angular.module('loginFuncMod',['Devise'])
       $scope.register = function() {
         $scope.submit({
           method: 'POST',
-          url: '/users.json',
+          url: '/signup.json',
           data: {
             user: { 
                     username: $scope.register_user.username,
@@ -51,7 +51,7 @@ angular.module('loginFuncMod',['Devise'])
       $scope.login = function() {
         $scope.submit({
           method: 'POST',
-          url: '/users/sign_in.json',
+          url: '/login.json',
           data: {
             user: { email: $scope.login_user.email,
             password: $scope.login_user.password
@@ -70,7 +70,7 @@ angular.module('loginFuncMod',['Devise'])
       $scope.logout = function() {
         $scope.submit({
           method: 'DELETE',
-          url: '/users/sign_out.json',
+          url: '/sign_out.json',
           success_message: 'You have been logged out.',
           error_entity: $scope.login_error
         },
@@ -83,7 +83,7 @@ angular.module('loginFuncMod',['Devise'])
       $scope.confirm = function(){
         $scope.submit({
           method: 'POST',
-          url: '/users/confirmation.json',
+          url: '/confirmation.json',
           data: {
             user: { email: $scope.login_user.email }
           },
@@ -92,7 +92,7 @@ angular.module('loginFuncMod',['Devise'])
         },
         function(){
           $timeout(function() {
-            $location.path('/users/sign_in');
+            $location.path('/login');
           }, 2000);
         });
       };
@@ -100,7 +100,7 @@ angular.module('loginFuncMod',['Devise'])
       $scope.password_reset = function() {
         $scope.submit({
           method: 'POST',
-          url: '/users/password.json',
+          url: '/password.json',
           data: {
             user: { email: $scope.login_user.email
             }
@@ -110,7 +110,7 @@ angular.module('loginFuncMod',['Devise'])
         },
         function(){
           $timeout(function() {
-            $location.path('/users/sign_in');
+            $location.path('/login');
           }, 2000);
         });
       };
@@ -119,7 +119,7 @@ angular.module('loginFuncMod',['Devise'])
       // $scope.change_password = function() {
       //   $scope.submit({
       //     method: "POST",
-      //     url: '/users/password.json',
+      //     url: '/password.json',
       //     data: {
       //       user: { password: $scope.register_user.password,
       //         password_confirmation: $scope.register_user.password_confirmation,
@@ -131,7 +131,7 @@ angular.module('loginFuncMod',['Devise'])
       //   },
       //   function(){
       //     $timeout(function() {
-      //       $location.path('/users/sign_in');
+      //       $location.path('/login');
       //     }, 2000);
       //   });
       // };
