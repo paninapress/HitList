@@ -1,6 +1,22 @@
 angular.module('loginFuncMod',['Devise'])
   .controller('loginFuncCtrl', ['$scope', '$http', '$location', '$window', '$timeout', 'Auth',
     function($scope, $http, $location, $window, $timeout, Auth){
+      
+      var nowDisplaying = function(){
+        $(".nav").find(".active").removeClass("active");
+        var path = /dashboard\/(.+)/.exec($location.path())[1];
+        $('.nav').find('.show-'+path).addClass('active');
+      };
+
+      if(/dashboard/.exec($location.path())[0] === 'dashboard' && /dashboard\/(.+)/.exec($location.path()) != null){
+        nowDisplaying();
+      };
+
+      $(".nav a").on("click", function(){
+          $(".nav").find(".active").removeClass("active");
+          $(this).parent().addClass("active");
+      });
+
       $scope.login_user = {
         email: null,
         password: null

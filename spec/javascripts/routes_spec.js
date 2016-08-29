@@ -61,11 +61,27 @@ describe('Routes', function(){
     	expect($route.current.templateUrl).toBe('/views/users/confirmations/new.html');
 	});
 
-	it('/dashboard should navigate to /dashboard.html', function(){
-		$httpBackend.expectGET('/views/dashboard.html').respond(200);
+	it('/dashboard should navigate to /dashboard/stars.html', function(){
+		$httpBackend.expectGET('/views/dashboard/stars.html').respond(200);
 		$rootScope.$apply(function() { $location.path('/dashboard'); });
 
 		expect($location.path()).toBe('/dashboard');
-    	expect($route.current.templateUrl).toBe('/views/dashboard.html');
+    	expect($route.current.templateUrl).toBe('/views/dashboard/stars.html');
+	});
+
+	it('/dashboard/stars should navigate to /dashboard/stars.html', function(){
+		$httpBackend.expectGET('/views/dashboard/stars.html').respond(200);
+		$rootScope.$apply(function() { $location.path('/dashboard/stars'); });
+
+		expect($location.path()).toBe('/dashboard/stars');
+    	expect($route.current.templateUrl).toBe('/views/dashboard/stars.html');
+	});
+
+	it('/dashboard/friends should navigate to /dashboard/friends.html', function(){
+		$httpBackend.expectGET('/views/dashboard/friends.html').respond(200);
+		$rootScope.$apply(function() { $location.path('/dashboard/friends'); });
+
+		expect($location.path()).toBe('/dashboard/friends');
+    	expect($route.current.templateUrl).toBe('/views/dashboard/friends.html');
 	});
 });

@@ -26,7 +26,13 @@ angular.module('HitListRoute', ['ngRoute', 'loginFuncMod'])
 				controller: 'loginFuncCtrl'
 			})
 			.when('/dashboard', {
-				templateUrl: '/views/dashboard.html'
+				templateUrl: '/views/dashboard/stars.html'
+			})
+			.when('/dashboard/stars', {
+				templateUrl: '/views/dashboard/stars.html'
+			})
+			.when('/dashboard/friends', {
+				templateUrl: '/views/dashboard/friends.html'
 			});
 		$locationProvider.html5Mode(true);
 		}]);
