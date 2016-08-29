@@ -8,8 +8,10 @@ angular.module('loginFuncMod',['Devise'])
         $('.nav').find('.show-'+path).addClass('active');
       };
 
-      if(/dashboard/.exec($location.path())[0] === 'dashboard' && /dashboard\/(.+)/.exec($location.path()) != null){
-        nowDisplaying();
+      if(/dashboard/.exec($location.path()) !== null){
+        if(/dashboard/.exec($location.path())[0] === 'dashboard' && /dashboard\/(.+)/.exec($location.path()) != null){
+          nowDisplaying();
+        };
       };
 
       $(".nav a").on("click", function(){
