@@ -1,7 +1,8 @@
 describe('Authentication: login functions controller', function() {
   var $rootScope,
       $scope,
-      $httpBackend;
+      $httpBackend,
+      $location;
   
   beforeEach(module('loginFuncMod'));
   

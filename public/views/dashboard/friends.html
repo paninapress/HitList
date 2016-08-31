@@ -1,2 +1,18 @@
+<div class="container" ng-controller="loginFuncCtrl">
+	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <ul class="nav nav-pills pull-left">
+        <li data-no-turbolink><a href="/dashboard/stars"><h4>HitList</h4><p>Version 1.0</p></a></li>
+    </ul>
+    <ul class="nav nav-pills pull-right">
+		<li class="show-stars"><a href="/dashboard/stars">Stars</a></li>
+		<li class="show-friends active"><a href="/dashboard/friends">Friends</a></li>
+		<li><a href="#" ng-click="logout()">Log out</a></li>
+    </ul>
+  </nav>
+</div>
+
+
 Hi this is the friends page:
-{{friends}}
+<div ng-show="friends.length > 0">
+    {{friends}}
+</div>

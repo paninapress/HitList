@@ -11,29 +11,19 @@
   <base href="/">
 </head>
 <body ng-app='HitListRoute'>
-
-	 <div class="container" ng-controller="loginFuncCtrl">
+    <% if !user_signed_in? %>
+    <div class="container">
     	<nav class="navbar navbar-default navbar-fixed-top" role="navigation">
         <ul class="nav nav-pills pull-left">
-         <% if user_signed_in? %>
-              <li data-no-turbolink><a href="/dashboard/stars"><h4>HitList</h4><p>Version 1.0</p></a></li>
-          <% else %>
-              <li data-no-turbolink><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
-          <% end %>
+            <li data-no-turbolink><a href="/"><h4>HitList</h4><p>Version 1.0</p></a></li>
         </ul>
-
         <ul class="nav nav-pills pull-right">
-          <% if user_signed_in? %>
-              <li class="show-stars active"><a href="/dashboard/stars">Stars</a></li>
-              <li class="show-friends"><a href="/dashboard/friends">Friends</a></li>
-              <li><a href="#" ng-click="logout()">Log out</a></li>
-          <% else %>
-              <li><%= link_to('Sign up', new_user_registration_path)  %></li>
-              <li><%= link_to('Log in', new_user_session_path)  %></li>
-          <% end %>
+            <li><%= link_to('Sign up', new_user_registration_path)  %></li>
+            <li><%= link_to('Log in', new_user_session_path)  %></li>
         </ul>
       </nav>
     </div>
+    <% end %>
 
 	<div class="main-content container">
     <p class="notice"><%= notice %></p>
